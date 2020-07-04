@@ -46,7 +46,7 @@ Seguro.prototype.cotizarSeguro = function(){
    }else{
       cantidad += cantidad * 0.5;
    }
-   console.log(cantidad);
+   return cantidad;
 }
 
 //Everything shown
@@ -66,6 +66,32 @@ Interfaz.prototype.mostrarError = function(mensaje, tipo){
    setTimeout(function(){
       document.querySelector('.mensaje').remove();
    }, 3000);
+}
+
+//Print the result of quote
+Interfaz.prototype.mostrarResultado = function(seguro, total){
+   const resultado = document.querySelector('#resultado');
+   let marca;
+
+   switch(seguro.marca){
+      case '1':
+         marca = 'Americano';
+         break;
+      case '2':
+         marca = 'Asiatico';
+         break;
+      case '3':
+         marca = 'Europeo';
+         break
+   }
+   const div = document.createElement('div');
+   div.innerHTML = `
+      <p>Marca: ${marca}</p>
+      <p>Año: ${seguro.anio}</p>
+      <p>Tipo de Seguro: ${seguro.tipo}</p>
+      <p>Valor a Pagar: ${total}</p>
+   `;
+   resultado.appendChild(div);
 }
 
 //Event Listener
@@ -89,9 +115,11 @@ formulario.addEventListener('submit', function(e){
       interfaz.mostrarError('Faltan Datos, Intenta de Nuevo', 'error');
    }else{
       const seguro = new Seguro(marcaSeleccionada, anioSeleccionado, tipo);
-
-      //quote insurance
       const cantidad = seguro.cotizarSeguro();
+
+      //Show result
+      interfaz.mostrarResultado(seguro, cantidad);
+      
    }
 
 });

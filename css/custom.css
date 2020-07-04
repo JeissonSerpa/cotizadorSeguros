@@ -55,6 +55,7 @@ header h1 {
 #cargando img {
     display: none;
     margin: 0 auto;
+    width: 20%;
 }
 #resultado  {
     margin-bottom: 40px;
@@ -62,7 +63,7 @@ header h1 {
 #resultado div {
     border: 1px solid #26C6DA;
     text-align: center;
-    padding: 0  0 20px 0;
+    padding: 0 0 20px 0;
 }
 #resultado div p {
     margin-bottom: 0;

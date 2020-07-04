@@ -85,13 +85,21 @@ Interfaz.prototype.mostrarResultado = function(seguro, total){
          break
    }
    const div = document.createElement('div');
+   const spinner = document.querySelector('#cargando img');
+   spinner.style.display = 'block'
+
    div.innerHTML = `
+      <p class='header'>Resultado:</p>
       <p>Marca: ${marca}</p>
       <p>Año: ${seguro.anio}</p>
       <p>Tipo de Seguro: ${seguro.tipo}</p>
       <p>Valor a Pagar: ${total}</p>
    `;
-   resultado.appendChild(div);
+
+   setTimeout(function(){
+      spinner.style.display = 'none';
+      resultado.appendChild(div);
+   }, 1500)
 }
 
 //Event Listener
@@ -114,6 +122,11 @@ formulario.addEventListener('submit', function(e){
    if (marcaSeleccionada === '' || anioSeleccionado === ''){
       interfaz.mostrarError('Faltan Datos, Intenta de Nuevo', 'error');
    }else{
+      const resultado = document.querySelector('#resultado div');
+      if(resultado != null){
+         resultado.remove();
+      }
+
       const seguro = new Seguro(marcaSeleccionada, anioSeleccionado, tipo);
       const cantidad = seguro.cotizarSeguro();
 
